@@ -53,6 +53,7 @@ const stylesFunction = (
     container: {
       justifyContent: 'center',
       alignItems: 'center',
+      ...(style as any),
     },
     activityIndicator: {
       position: 'absolute',
