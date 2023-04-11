@@ -18,3 +18,4 @@ This project use the following dependencies:
 - [React Navigation - Stack navigator](<https://reactnavigation.org/docs/stack-navigator/>)
 - [React Native Vector Icons](<https://github.com/oblador/react-native-vector-icons>)
 - [Pokemon APi](<https://pokeapi.co/>)
+- [React Native Image Colors](<https://www.npmjs.com/package/react-native-image-colors>)

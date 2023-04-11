@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   Image,
   ScaledSize,
@@ -10,7 +10,7 @@ import {
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
 import {ThemeText} from './ThemeText';
-import {getImageColors} from '../helpers/utils';
+import {getImageColors, isColorTooLightForWhiteText} from '../helpers/utils';
 
 interface Props {
   pokemon: SimplePokemon;
@@ -20,11 +20,20 @@ export const PokemonCard = ({pokemon}: Props) => {
   const windowDimension = useWindowDimensions();
   const [bgColor, setBgColor] = useState('#979A9A');
   const styles = stylesFunction(windowDimension, bgColor);
+  const isMounted = useRef(true);
 
   useEffect(() => {
+    if (!isMounted.current) {
+      return;
+    }
+
     getImageColors(pokemon.picture).then(([primaryColor]) =>
       setBgColor(primaryColor ? primaryColor : bgColor),
     );
+
+    return () => {
+      isMounted.current = false;
+    };
   }, [bgColor, pokemon.picture]);
 
   return (
@@ -74,7 +83,7 @@ const stylesFunction = (windowDimension: ScaledSize, bgColor: string) =>
       bottom: -5,
     },
     pokemonName: {
-      color: 'white',
+      color: isColorTooLightForWhiteText(bgColor) ? 'black' : 'white',
       fontSize: 18,
       fontWeight: 'bold',
       top: 10,
