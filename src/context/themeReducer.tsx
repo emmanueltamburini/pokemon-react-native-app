@@ -27,7 +27,7 @@ export const darkTheme: ThemeState = {
   dividerColor: 'rgba(255,255,255,0.6)',
   colors: {
     primary: '#75CEDB',
-    background: 'black',
+    background: 'grey',
     card: 'black',
     text: 'white',
     border: 'white',

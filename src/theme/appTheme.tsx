@@ -9,4 +9,12 @@ export const globalStyles = () =>
     globalMargin: {
       marginHorizontal: 20,
     },
+    pokeballBg: {
+      top: -100,
+      right: -120,
+      opacity: 0.2,
+      position: 'absolute',
+      width: 300,
+      height: 300,
+    },
   });

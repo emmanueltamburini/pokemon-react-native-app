@@ -3,11 +3,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreen} from '../screens/HomeScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeContext} from '../context/ThemeContext';
-import {TestScreen} from '../screens/TestScreen';
+import {PokemonScreen} from '../screens/PokemonScreen';
 
 export type RootStackParams = {
   HomeScreen: undefined;
-  TestScreen: undefined;
+  PokemonScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -23,7 +23,7 @@ export const Navigator = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="TestScreen" component={TestScreen} />
+        <Stack.Screen name="PokemonScreen" component={PokemonScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -2,8 +2,8 @@ import {MenuItem} from '../interfaces/appInterfaces';
 
 export const menuItems: MenuItem[] = [
   {
-    name: 'Alert',
+    name: 'Pokemon',
     icon: 'alert-circle-outline',
-    component: 'TestScreen',
+    component: 'PokemonScreen',
   },
 ];

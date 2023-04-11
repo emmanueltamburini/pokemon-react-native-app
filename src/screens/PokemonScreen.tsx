@@ -2,12 +2,12 @@ import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import {ThemeText} from '../components/ThemeText';
 
-export const TestScreen = () => {
+export const PokemonScreen = () => {
   const styles = stylesFunction();
 
   return (
     <ThemeText style={styles.container}>
-      <Text>TestScreen</Text>
+      <Text>PokemonScreen</Text>
     </ThemeText>
   );
 };
