@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ScaledSize,
@@ -10,6 +10,7 @@ import {
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
 import {ThemeText} from './ThemeText';
+import {getImageColors} from '../helpers/utils';
 
 interface Props {
   pokemon: SimplePokemon;
@@ -17,14 +18,21 @@ interface Props {
 
 export const PokemonCard = ({pokemon}: Props) => {
   const windowDimension = useWindowDimensions();
-  const styles = stylesFunction(windowDimension);
+  const [bgColor, setBgColor] = useState('#979A9A');
+  const styles = stylesFunction(windowDimension, bgColor);
+
+  useEffect(() => {
+    getImageColors(pokemon.picture).then(([primaryColor]) =>
+      setBgColor(primaryColor ? primaryColor : bgColor),
+    );
+  }, [bgColor, pokemon.picture]);
 
   return (
     <TouchableOpacity activeOpacity={0.9}>
       <View style={styles.cardContainer}>
         <View>
           <ThemeText style={styles.pokemonName} ignoreTheme>
-            {pokemon.name}
+            {pokemon.name.replace(/^\w/, c => c.toUpperCase())}
             {`\n#${pokemon.id}`}
           </ThemeText>
         </View>
@@ -40,11 +48,11 @@ export const PokemonCard = ({pokemon}: Props) => {
   );
 };
 
-const stylesFunction = (windowDimension: ScaledSize) =>
+const stylesFunction = (windowDimension: ScaledSize, bgColor: string) =>
   StyleSheet.create({
     cardContainer: {
       marginHorizontal: 10,
-      backgroundColor: 'red',
+      backgroundColor: bgColor,
       height: 120,
       width: windowDimension.width * 0.4,
       marginBottom: 25,
@@ -67,9 +75,9 @@ const stylesFunction = (windowDimension: ScaledSize) =>
     },
     pokemonName: {
       color: 'white',
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: 'bold',
-      top: 20,
+      top: 10,
       left: 10,
     },
     pokeballContainer: {
