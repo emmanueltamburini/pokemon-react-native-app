@@ -105,8 +105,8 @@ const stylesFunction = (windowDimension: ScaledSize, bgColor: string) =>
       left: 10,
     },
     pokeballContainer: {
-      width: 100,
-      height: 100,
+      width: windowDimension.width >= 650 ? 140 : 100,
+      height: windowDimension.width >= 650 ? 140 : 100,
       position: 'absolute',
       bottom: 0,
       right: 0,
@@ -114,8 +114,8 @@ const stylesFunction = (windowDimension: ScaledSize, bgColor: string) =>
       overflow: 'hidden',
     },
     pokeballImage: {
-      width: 100,
-      height: 100,
+      width: windowDimension.width >= 650 ? 140 : 100,
+      height: windowDimension.width >= 650 ? 140 : 100,
       bottom: -25,
       right: -25,
     },
