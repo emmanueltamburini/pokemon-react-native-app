@@ -3,11 +3,12 @@ import {StyleSheet, View, Image, ActivityIndicator} from 'react-native';
 import {ThemeText} from '../components/ThemeText';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../navigator/navigator';
-import {isColorTooLightForWhiteText} from '../helpers/utils';
+import {capitalize, isColorTooLightForWhiteText} from '../helpers/utils';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FadeInImage} from '../components/FadeInImage';
 import {TouchableIcon} from '../components/TouchableIcon';
 import {usePokemon} from '../hooks/usePokemon';
+import {PokemonDetails} from '../components/PokemonDetails';
 
 interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> {}
 
@@ -30,7 +31,7 @@ export const PokemonScreen = ({route, navigation}: Props) => {
           size={35}
         />
         <ThemeText ignoreTheme style={styles.pokemonName}>
-          {simplePokemon.name.replace(/^\w/, c => c.toUpperCase())}
+          {capitalize(simplePokemon.name)}
           {`\n#${simplePokemon.id}`}
         </ThemeText>
         <Image
@@ -39,10 +40,12 @@ export const PokemonScreen = ({route, navigation}: Props) => {
         />
         <FadeInImage uri={simplePokemon.picture} style={styles.pokemonImage} />
       </View>
-      {isLoading && (
+      {isLoading || !pokemon ? (
         <View style={styles.activityIndicator}>
           <ActivityIndicator color={color} size={50} />
         </View>
+      ) : (
+        <PokemonDetails pokemon={pokemon} />
       )}
     </View>
   );

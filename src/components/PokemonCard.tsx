@@ -10,7 +10,11 @@ import {
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
 import {ThemeText} from './ThemeText';
-import {getImageColors, isColorTooLightForWhiteText} from '../helpers/utils';
+import {
+  capitalize,
+  getImageColors,
+  isColorTooLightForWhiteText,
+} from '../helpers/utils';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParams} from '../navigator/navigator';
 import {useNavigation} from '@react-navigation/native';
@@ -52,7 +56,7 @@ export const PokemonCard = ({pokemon}: Props) => {
       <View style={styles.cardContainer}>
         <View>
           <ThemeText style={styles.pokemonName} ignoreTheme>
-            {pokemon.name.replace(/^\w/, c => c.toUpperCase())}
+            {capitalize(pokemon.name)}
             {`\n#${pokemon.id}`}
           </ThemeText>
         </View>

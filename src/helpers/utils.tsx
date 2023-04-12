@@ -48,3 +48,10 @@ const hexToRgb = (hexColor: string) => {
 
   return {r, g, b};
 };
+
+export const capitalize = (item?: string): string => {
+  if (!item) {
+    return '';
+  }
+  return item.replace(/^\w/, c => c.toUpperCase());
+};
