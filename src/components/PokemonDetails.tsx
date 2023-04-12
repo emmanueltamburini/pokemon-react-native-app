@@ -39,7 +39,7 @@ export const PokemonDetails = ({pokemon}: Props) => {
         <ThemeText style={styles.title}>Weight</ThemeText>
         <View style={styles.listContainer}>
           <ThemeText style={{...styles.regularText, ...styles.rightSeparator}}>
-            {`${pokemon.weight / 100} Kg`}
+            {`${pokemon.weight / 10} Kg`}
           </ThemeText>
         </View>
       </View>
