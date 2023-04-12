@@ -1,56 +1,59 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
-  ActivityIndicator,
+  StyleSheet,
+  Image,
   useWindowDimensions,
   ScaledSize,
 } from 'react-native';
+import {ThemeText} from './ThemeText';
+import {TouchableIcon} from './TouchableIcon';
+import {FadeInImage} from './FadeInImage';
+import {capitalize, isColorTooLightForWhiteText} from '../helpers/utils';
 import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParams} from '../navigator/navigator';
-import {isColorTooLightForWhiteText} from '../helpers/utils';
+import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {usePokemon} from '../hooks/usePokemon';
-import {PokemonDetails} from '../components/PokemonDetails';
-import {PokemonHeader} from '../components/PokemonHeader';
 
-interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> {}
+interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> {
+  simplePokemon: SimplePokemon;
+  color: string;
+}
 
-export const PokemonScreen = ({route, navigation}: Props) => {
-  const {color, simplePokemon} = route.params;
+export const PokemonHeader = ({navigation, simplePokemon, color}: Props) => {
   const {top} = useSafeAreaInsets();
   const dimensions = useWindowDimensions();
-  const {pokemon, isLoading} = usePokemon(simplePokemon.id);
-
   const styles = stylesFunction(color, top, dimensions);
 
   return (
-    <View style={styles.container}>
-      <PokemonHeader
-        simplePokemon={simplePokemon}
-        color={color}
-        navigation={navigation}
-        route={route}
+    <View style={styles.headerContainer}>
+      <TouchableIcon
+        activeOpacity={0.8}
+        style={styles.backButton}
+        onPress={() => navigation.popToTop()}
+        name="arrow-back-outline"
+        color={isColorTooLightForWhiteText(color) ? 'black' : 'white'}
+        size={35}
       />
-      {isLoading || !pokemon ? (
-        <View style={styles.activityIndicator}>
-          <ActivityIndicator color={color} size={50} />
-        </View>
-      ) : (
-        <PokemonDetails pokemon={pokemon} />
-      )}
+      <ThemeText ignoreTheme style={styles.pokemonName}>
+        {capitalize(simplePokemon.name)}
+        {`\n#${simplePokemon.id}`}
+      </ThemeText>
+      <Image
+        source={require('../assets/white-pokeball.png')}
+        style={styles.pokeballImage}
+      />
+      <FadeInImage uri={simplePokemon.picture} style={styles.pokemonImage} />
     </View>
   );
 };
 
 const stylesFunction = (color: string, top: number, dimensions: ScaledSize) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: dimensions.width >= 650 ? 'row' : 'column',
-    },
     headerContainer: {
       height: 370,
+      width:
+        dimensions.width >= 650 ? dimensions.width * 0.5 : dimensions.width,
       backgroundColor: color,
       zIndex: 999,
       alignItems: 'center',
@@ -80,10 +83,5 @@ const stylesFunction = (color: string, top: number, dimensions: ScaledSize) =>
       width: 250,
       position: 'absolute',
       bottom: -15,
-    },
-    activityIndicator: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
     },
   });

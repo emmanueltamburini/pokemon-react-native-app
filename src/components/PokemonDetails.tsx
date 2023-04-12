@@ -1,5 +1,11 @@
 import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {
+  ScaledSize,
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import {Pokemon} from '../interfaces/pokemonInterfaces';
 import {ThemeText} from './ThemeText';
 import {FadeInImage} from './FadeInImage';
@@ -10,10 +16,13 @@ interface Props {
 }
 
 export const PokemonDetails = ({pokemon}: Props) => {
-  const styles = stylesFunction();
+  const dimensions = useWindowDimensions();
+  const styles = stylesFunction(dimensions);
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={{...styles.container, ...styles.absoluteFillObject}}
+      showsVerticalScrollIndicator={false}>
       <View style={{...styles.containerInfo, ...styles.topSeparator}}>
         <ThemeText style={styles.title}>Types</ThemeText>
         <View style={styles.listContainer}>
@@ -105,17 +114,20 @@ export const PokemonDetails = ({pokemon}: Props) => {
   );
 };
 
-const stylesFunction = () =>
+const stylesFunction = (dimensions: ScaledSize) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      ...StyleSheet.absoluteFillObject,
+      width:
+        dimensions.width >= 650 ? dimensions.width * 0.5 : dimensions.width,
     },
+    absoluteFillObject:
+      dimensions.width >= 650 ? {} : {...StyleSheet.absoluteFillObject},
     containerInfo: {
       marginHorizontal: 20,
     },
     topSeparator: {
-      marginTop: 370,
+      marginTop: dimensions.width >= 650 ? 0 : 370,
     },
     title: {
       marginTop: 20,
@@ -148,6 +160,6 @@ const stylesFunction = () =>
       fontWeight: 'bold',
     },
     finalSprite: {
-      marginBottom: 50,
+      marginBottom: 30,
     },
   });
