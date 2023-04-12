@@ -11,13 +11,20 @@ import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
 import {ThemeText} from './ThemeText';
 import {getImageColors, isColorTooLightForWhiteText} from '../helpers/utils';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParams} from '../navigator/navigator';
+import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   pokemon: SimplePokemon;
 }
 
+type navigationProp = StackNavigationProp<RootStackParams>;
+
 export const PokemonCard = ({pokemon}: Props) => {
   const windowDimension = useWindowDimensions();
+  const {navigate} = useNavigation<navigationProp>();
+
   const [bgColor, setBgColor] = useState('#979A9A');
   const styles = stylesFunction(windowDimension, bgColor);
   const isMounted = useRef(true);
@@ -37,7 +44,11 @@ export const PokemonCard = ({pokemon}: Props) => {
   }, [bgColor, pokemon.picture]);
 
   return (
-    <TouchableOpacity activeOpacity={0.9}>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={() =>
+        navigate('PokemonScreen', {simplePokemon: pokemon, color: bgColor})
+      }>
       <View style={styles.cardContainer}>
         <View>
           <ThemeText style={styles.pokemonName} ignoreTheme>

@@ -4,10 +4,11 @@ import {HomeScreen} from '../screens/HomeScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeContext} from '../context/ThemeContext';
 import {PokemonScreen} from '../screens/PokemonScreen';
+import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 
 export type RootStackParams = {
   HomeScreen: undefined;
-  PokemonScreen: undefined;
+  PokemonScreen: {simplePokemon: SimplePokemon; color: string};
 };
 
 const Stack = createStackNavigator<RootStackParams>();
