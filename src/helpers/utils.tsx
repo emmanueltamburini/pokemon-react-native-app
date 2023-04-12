@@ -22,7 +22,7 @@ export const getImageColors = async (
       secondaryColor = result.vibrant;
       break;
     case 'ios':
-      primaryColor = result.primary;
+      primaryColor = result.background;
       secondaryColor = result.secondary;
       break;
     default:
