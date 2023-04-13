@@ -57,7 +57,12 @@ export const SearchScreen = () => {
       />
       <FlatList
         ListHeaderComponent={
-          <HeaderTitle title={searchTerm} style={styles.headerTitle} />
+          searchTerm.length === 0 ? null : (
+            <HeaderTitle
+              title={`Searching: ${searchTerm}`}
+              style={styles.headerTitle}
+            />
+          )
         }
         data={pokemonFiltered}
         renderItem={({item}) => renderItem(item)}
@@ -84,5 +89,7 @@ const stylesFunction = (dimensions: ScaledSize, top: number) =>
     headerTitle: {
       marginTop: 70 + top,
       alignItems: 'center',
+      paddingHorizontal: 30,
+      fontSize: 15,
     },
   });

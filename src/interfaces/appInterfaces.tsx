@@ -1,4 +1,4 @@
-import {RootStackParams} from '../navigator/Navigator';
+import {RootStackParams} from '../navigator/Tab1';
 
 type ComponentKey = keyof RootStackParams;
 

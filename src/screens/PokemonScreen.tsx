@@ -7,7 +7,7 @@ import {
   ScaledSize,
 } from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParams} from '../navigator/Navigator';
+import {RootStackParams} from '../navigator/Tab1';
 import {isColorTooLightForWhiteText} from '../helpers/utils';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {usePokemon} from '../hooks/usePokemon';
