@@ -1,15 +1,26 @@
 import React, {useContext} from 'react';
-import {View, StyleSheet, TextInput, Platform} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Platform,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import {ThemeContext} from '../context/ThemeContext';
 import {ThemeState} from '../context/themeReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const SearchInput = () => {
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
+
+export const SearchInput = ({style}: Props) => {
   const {theme} = useContext(ThemeContext);
 
   const styles = stylesFunction(theme);
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, ...(style as any)}}>
       <View style={styles.textBackground}>
         <TextInput
           placeholder="Search Pokemon"
@@ -27,7 +38,6 @@ export const SearchInput = () => {
 const stylesFunction = (theme: ThemeState) =>
   StyleSheet.create({
     container: {
-      flex: 1,
       marginHorizontal: 10,
     },
     textBackground: {
