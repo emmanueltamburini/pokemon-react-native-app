@@ -46,7 +46,7 @@ export const Tabs = () => {
             paddingBottom: Platform.OS === 'ios' ? 0 : 10,
             borderWidth: 0,
             elevation: 0,
-            height: 65,
+            height: 60,
           },
         }}>
         <Tab.Screen

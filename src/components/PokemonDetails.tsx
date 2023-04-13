@@ -160,6 +160,6 @@ const stylesFunction = (dimensions: ScaledSize) =>
       fontWeight: 'bold',
     },
     finalSprite: {
-      marginBottom: 30,
+      marginBottom: 50,
     },
   });

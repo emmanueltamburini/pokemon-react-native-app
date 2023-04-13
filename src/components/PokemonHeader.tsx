@@ -51,7 +51,7 @@ export const PokemonHeader = ({navigation, simplePokemon, color}: Props) => {
 const stylesFunction = (color: string, top: number, dimensions: ScaledSize) =>
   StyleSheet.create({
     headerContainer: {
-      height: 370,
+      height: dimensions.width >= 650 ? 300 : 370,
       width:
         dimensions.width >= 650 ? dimensions.width * 0.5 : dimensions.width,
       backgroundColor: color,
@@ -73,14 +73,14 @@ const stylesFunction = (color: string, top: number, dimensions: ScaledSize) =>
       top: top + 40,
     },
     pokeballImage: {
-      height: 250,
-      width: 250,
+      height: dimensions.width >= 650 ? 200 : 250,
+      width: dimensions.width >= 650 ? 200 : 250,
       bottom: -20,
       opacity: 0.7,
     },
     pokemonImage: {
-      height: 250,
-      width: 250,
+      height: dimensions.width >= 650 ? 200 : 250,
+      width: dimensions.width >= 650 ? 200 : 250,
       position: 'absolute',
       bottom: -15,
     },
