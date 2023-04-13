@@ -1,15 +1,13 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
   FlatList,
   useWindowDimensions,
   ScaledSize,
 } from 'react-native';
 import {SearchInput} from '../components/SearchInput';
 import {usePokemonSearch} from '../hooks/usePokemonSearch';
-import {ThemeContext} from '../context/ThemeContext';
 import {HeaderTitle} from '../components/HeaderTitle';
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {PokemonCard} from '../components/PokemonCard';
@@ -17,12 +15,34 @@ import {Loading} from '../components/Loading';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export const SearchScreen = () => {
-  const {theme} = useContext(ThemeContext);
   const dimensions = useWindowDimensions();
   const {top} = useSafeAreaInsets();
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+  const {isFetching, simplePokemonList} = usePokemonSearch();
+
+  useEffect(() => {
+    if (searchTerm.length === 0) {
+      return setPokemonFiltered([]);
+    }
+
+    if (isNaN(Number(searchTerm))) {
+      setPokemonFiltered(
+        simplePokemonList.filter(pokemon =>
+          pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
+    } else {
+      const pokemonById = simplePokemonList.find(
+        pokemon => pokemon.id === searchTerm,
+      );
+      setPokemonFiltered(pokemonById ? [pokemonById] : []);
+    }
+  }, [searchTerm, simplePokemonList]);
+
   const styles = stylesFunction(dimensions, top);
 
-  const {isFetching, simplePokemonList} = usePokemonSearch();
   const renderItem = (item: SimplePokemon) => <PokemonCard pokemon={item} />;
 
   if (isFetching) {
@@ -31,26 +51,20 @@ export const SearchScreen = () => {
 
   return (
     <View style={styles.container}>
-      <SearchInput style={styles.searchInput} />
-      <View style={styles.listContainer}>
-        <FlatList
-          ListHeaderComponent={
-            <HeaderTitle title="Pokedex" style={styles.headerTitle} />
-          }
-          data={simplePokemonList}
-          renderItem={({item}) => renderItem(item)}
-          keyExtractor={pokemon => pokemon.id}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          ListFooterComponent={
-            <ActivityIndicator
-              style={styles.activityIndicator}
-              size={20}
-              color={theme.dividerColor}
-            />
-          }
-        />
-      </View>
+      <SearchInput
+        onDebounceChange={setSearchTerm}
+        style={styles.searchInput}
+      />
+      <FlatList
+        ListHeaderComponent={
+          <HeaderTitle title={searchTerm} style={styles.headerTitle} />
+        }
+        data={pokemonFiltered}
+        renderItem={({item}) => renderItem(item)}
+        keyExtractor={pokemon => pokemon.id}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+      />
     </View>
   );
 };
@@ -60,12 +74,6 @@ const stylesFunction = (dimensions: ScaledSize, top: number) =>
     container: {
       flex: 1,
       marginVertical: 20,
-    },
-    activityIndicator: {
-      height: 100,
-    },
-    listContainer: {
-      justifyContent: 'center',
       alignItems: 'center',
     },
     searchInput: {
@@ -75,5 +83,6 @@ const stylesFunction = (dimensions: ScaledSize, top: number) =>
     },
     headerTitle: {
       marginTop: 70 + top,
+      alignItems: 'center',
     },
   });

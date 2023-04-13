@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,13 +10,24 @@ import {
 import {ThemeContext} from '../context/ThemeContext';
 import {ThemeState} from '../context/themeReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useDebounce} from '../hooks/useDebounce';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
+  onDebounceChange?: (value: string) => void;
 }
 
-export const SearchInput = ({style}: Props) => {
+export const SearchInput = ({style, onDebounceChange}: Props) => {
   const {theme} = useContext(ThemeContext);
+  const [textValue, setTextValue] = useState('');
+  const {debounce} = useDebounce(textValue);
+  const onDebounceChangeStatic = useRef(onDebounceChange);
+
+  useEffect(() => {
+    if (onDebounceChangeStatic.current) {
+      onDebounceChangeStatic.current(debounce);
+    }
+  }, [debounce]);
 
   const styles = stylesFunction(theme);
   return (
@@ -28,6 +39,8 @@ export const SearchInput = ({style}: Props) => {
           autoCorrect={false}
           style={styles.textInput}
           placeholderTextColor={theme.colors.text}
+          value={textValue}
+          onChangeText={setTextValue}
         />
         <Icon name="search-outline" size={23} color={theme.colors.text} />
       </View>
