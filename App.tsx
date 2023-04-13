@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {Navigator} from './src/navigator/navigator';
 import {ThemeProvider} from './src/context/ThemeContext';
+import {Tabs} from './src/navigator/Tabs';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -10,7 +10,7 @@ interface Props {
 export const App = () => {
   return (
     <AppState>
-      <Navigator />
+      <Tabs />
     </AppState>
   );
 };

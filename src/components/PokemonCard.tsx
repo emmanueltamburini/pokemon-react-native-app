@@ -16,7 +16,7 @@ import {
   isColorTooLightForWhiteText,
 } from '../helpers/utils';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {RootStackParams} from '../navigator/navigator';
+import {RootStackParams} from '../navigator/Navigator';
 import {useNavigation} from '@react-navigation/native';
 
 interface Props {

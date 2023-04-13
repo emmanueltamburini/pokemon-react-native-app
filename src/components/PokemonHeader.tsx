@@ -11,7 +11,7 @@ import {TouchableIcon} from './TouchableIcon';
 import {FadeInImage} from './FadeInImage';
 import {capitalize, isColorTooLightForWhiteText} from '../helpers/utils';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParams} from '../navigator/navigator';
+import {RootStackParams} from '../navigator/Navigator';
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
