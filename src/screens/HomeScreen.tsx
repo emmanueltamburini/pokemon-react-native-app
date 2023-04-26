@@ -28,7 +28,7 @@ export const HomeScreen = () => {
       />
       <View style={styles.flatListContainer}>
         <FlatList
-          ListHeaderComponent={<HeaderTitle title="Pokedex" />}
+          ListHeaderComponent={<HeaderTitle title="Pokédex" />}
           data={simplePokemonList}
           renderItem={({item}) => renderItem(item)}
           keyExtractor={pokemon => pokemon.id}

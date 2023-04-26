@@ -19,3 +19,4 @@ This project use the following dependencies:
 - [React Native Vector Icons](<https://github.com/oblador/react-native-vector-icons>)
 - [Pokemon APi](<https://pokeapi.co/>)
 - [React Native Image Colors](<https://www.npmjs.com/package/react-native-image-colors>)
+- [React Native Splash Screen](<https://github.com/crazycodeboy/react-native-splash-screen>)
