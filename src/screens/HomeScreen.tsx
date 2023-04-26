@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -12,6 +12,7 @@ import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {ThemeContext} from '../context/ThemeContext';
 import {PokemonCard} from '../components/PokemonCard';
+import SplashScreen from 'react-native-splash-screen';
 
 export const HomeScreen = () => {
   const styles = stylesFunction();
@@ -19,6 +20,10 @@ export const HomeScreen = () => {
   const {simplePokemonList, loadPokemons} = usePokemonPaginated();
 
   const renderItem = (item: SimplePokemon) => <PokemonCard pokemon={item} />;
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   return (
     <View style={styles.container}>
