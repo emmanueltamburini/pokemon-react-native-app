@@ -142,8 +142,6 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
-            mappingFileUploadEnabled true
-            proguardMapping 'mapping.txt'
         }
     }
 
