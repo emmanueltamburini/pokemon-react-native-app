@@ -20,3 +20,4 @@ This project use the following dependencies:
 - [Pokemon APi](<https://pokeapi.co/>)
 - [React Native Image Colors](<https://www.npmjs.com/package/react-native-image-colors>)
 - [React Native Splash Screen](<https://github.com/crazycodeboy/react-native-splash-screen>)
+- [React Native Splash Screen](<https://reactnative.dev/docs/signed-apk-android#migrating-old-android-react-native-apps-to-use-app-signing-by-google-play>)

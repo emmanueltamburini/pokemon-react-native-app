@@ -99,9 +99,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.pokedex"
+    namespace "com.emmanueltamburini.pokedex"
     defaultConfig {
-        applicationId "com.pokedex"
+        applicationId "com.emmanueltamburini.pokedex"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -142,6 +142,8 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            mappingFileUploadEnabled true
+            proguardMapping 'mapping.txt'
         }
     }
 

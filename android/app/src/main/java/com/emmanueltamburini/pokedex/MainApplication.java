@@ -1,4 +1,4 @@
-package com.pokedex;
+package com.emmanueltamburini.pokedex;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import android.app.Application;
